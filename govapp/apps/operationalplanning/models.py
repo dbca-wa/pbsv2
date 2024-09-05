@@ -576,7 +576,7 @@ class OperationalPlan(
         #     "TODO: Add appropriate groups here",
         # ]
         # return User.objects.filter(is_active=True, groups__name__in=GROUPS).distinct()
-        return User.objects.filter(is_active=True)
+        return User.objects.filter(is_active=True, is_staff=True)
 
 
 class OperationalPlanPurpose(TimeStampedModel):

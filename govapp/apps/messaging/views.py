@@ -39,6 +39,7 @@ class MessageViewSet(viewsets.ReadOnlyModelViewSet):
         """Get the latest messages."""
         queryset = (
             self.get_queryset()
+            .filter(user=request.user)
             .exclude(dismissed=True)
             .order_by("-created")[: settings.MESSAGING_LATEST_MESSAGES_COUNT]
         )

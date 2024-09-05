@@ -52,7 +52,7 @@ class BurnPlanElementViewSet(viewsets.ModelViewSet):
             ],
             "season": [
                 {"key": x[0], "value": x[1]}
-                for x in BurnPlanElement.preferred_season.field.choices._doubles
+                for x in BurnPlanElement.preferred_season.field.choices
             ],
             "justification": Justification.cached_key_value_list(),
         }

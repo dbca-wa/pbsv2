@@ -1,7 +1,11 @@
+import logging
+
 from rest_framework import response, serializers
 from rest_framework.decorators import action
 
 from govapp.apps.main.serializers import GenericKeyValueSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class KeyValueListMixin:
@@ -68,15 +72,16 @@ class GetFilterOptionsMixin:
     # To be used on a serializer. Adds a filter_options method field.
     def get_filter_options(self, obj):
         if not self.fields.get("filter_options", None):
-            # Check is not necessary, but it's here for good measure
-            raise AttributeError("filter_options field is not defined on serializer")
+            return None
 
         view = self.context.get("view", None)
-        if view and hasattr(view, "get_options"):
+        action = view.action
+        if view and hasattr(view, "get_options") and action == "retrieve":
             return view.get_options()[1]
         return None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not self.fields.get("filter_options", None):
+        action = self.context.get("view", None).action
+        if not self.fields.get("filter_options", None) and action == "retrieve":
             self.fields["filter_options"] = serializers.SerializerMethodField()

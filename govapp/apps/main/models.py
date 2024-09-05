@@ -335,7 +335,7 @@ class AssignableModel(models.Model, metaclass=AbstractModelMeta):
         abstract = True
 
     def assign(self, user: User):
-        if not self.user_is_assignable(user):
+        if user is not None and not self.user_is_assignable(user):
             raise ValueError(f"{user} is not assignable to {self}")
         self.assigned_to = user
         self.save()

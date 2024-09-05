@@ -33,7 +33,14 @@ if DEBUG is True and ENVIRONMENT == "local":
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 project = tomli.load(open(os.path.join(BASE_DIR, "pyproject.toml"), "rb"))
 
-APPLICATION_VERSION = project["tool"]["poetry"]["version"]
+GIT_COMMIT_HASH = os.popen(
+    f"cd {BASE_DIR}; git log -1 --format=%H"
+).read()  # noqa: S605
+GIT_COMMIT_DATE = os.popen(
+    f"cd {BASE_DIR}; git log -1 --format=%cd"
+).read()  # noqa: S605
+
+APPLICATION_VERSION = project["tool"]["poetry"]["version"] + "-" + GIT_COMMIT_HASH[:7]
 
 # Sentry settings
 SENTRY_DSN = decouple.config("SENTRY_DSN", default=None)
@@ -63,7 +70,6 @@ PROJECT_DESCRIPTION = (
     "A system to manage risk, planning, implementation and post-implementation "
     "review for the mitigation of bushfires in Western Australia"
 )
-PROJECT_VERSION = "2.0.0"
 
 DEPARTMENT_NAME = "Department of Biodiversity, Conservation and Attractions"
 SUPPORT_PHONE = "(08) 0000 0000"
@@ -222,12 +228,7 @@ else:
 # https://github.com/dbca-wa/django-base-template/blob/main/govapp/settings.py
 ENABLE_DJANGO_LOGIN = decouple.config("ENABLE_DJANGO_LOGIN", default=False, cast=bool)
 LEDGER_TEMPLATE = "bootstrap5"
-GIT_COMMIT_HASH = os.popen(
-    f"cd {BASE_DIR}; git log -1 --format=%H"
-).read()  # noqa: S605
-GIT_COMMIT_DATE = os.popen(
-    f"cd {BASE_DIR}; git log -1 --format=%cd"
-).read()  # noqa: S605
+
 
 if DEBUG:
     rest_framework_renderer_classes = [
@@ -268,7 +269,7 @@ MAILQUEUE_QUEUE_UP = True
 SPECTACULAR_SETTINGS = {
     "TITLE": PROJECT_TITLE,
     "DESCRIPTION": PROJECT_DESCRIPTION,
-    "VERSION": PROJECT_VERSION,
+    "VERSION": APPLICATION_VERSION,
     "SERVE_INCLUDE_SCHEMA": True,
     "POSTPROCESSING_HOOKS": [],
     "COMPONENT_SPLIT_REQUEST": True,

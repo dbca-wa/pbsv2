@@ -1,5 +1,0 @@
-# Add crons below
-*/5 * * * * oim eval $(grep -v '^#' /etc/.cronenv | xargs -d "\n" -I {} echo export \"{}\" ) && cd /app && poetry run python ./manage.py runcrons >> /app/logs/cronjob.log 2>&1
-
-# Process email queue every minute
-* * * * * oim eval $(grep -v '^#' /etc/.cronenv | xargs -d "\n" -I {} echo export \"{}\" ) && cd /app && poetry run python ./manage.py send_queued_messages >> /app/logs/send_queued_messages_cronjob.log 2>&1

@@ -7,14 +7,14 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "^4.2"
+Django = "5.0.9"
 djangorestframework = "^3.14"
 dj-database-url = "^2.1"
 psycopg2 = "^2.9"
-gunicorn = "^21.2"
+gunicorn = "^23.0"
 whitenoise = "^6.5"
 dbca-utils = {git = "https://github.com/dbca-wa/dbca-utils.git", rev = "1.1.1"}
-webtemplate_dbca = {git = "https://github.com/dbca-wa/webtemplate2.git"}
+webtemplate_dbca = {git = "https://github.com/dbca-wa/webtemplate2.git", rev = "master"}
 wagov_utils = {git = "https://github.com/dbca-wa/wagov_utils.git"}
 drf-spectacular = "^0.26"
 django-filter = "^23.3"
@@ -31,7 +31,7 @@ django-extensions = "^3.2"
 django-model-utils = "^4.3"
 coverage = "^7.3"
 django-coverage-plugin = "^3.1"
-setuptools = "^68.2"
+setuptools = "^70.3"
 django-protected-media = "^1.0"
 selenium = "^4.14"
 django-selenium = "^0.9"

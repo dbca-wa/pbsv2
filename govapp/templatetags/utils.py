@@ -15,8 +15,8 @@ def project_description():
 
 
 @register.simple_tag()
-def project_version():
-    return settings.PROJECT_VERSION
+def application_version():
+    return settings.APPLICATION_VERSION
 
 
 @register.simple_tag()

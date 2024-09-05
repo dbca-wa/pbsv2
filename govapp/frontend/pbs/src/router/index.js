@@ -51,6 +51,7 @@ const router = createRouter({
             children: [
                 {
                     path: '',
+                    name: 'burn-planning-units-list',
                     component: BurnPlanningUnits,
                 },
                 {

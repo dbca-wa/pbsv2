@@ -57,7 +57,10 @@
                             title=""
                             content=""
                         >
-                            <BootstrapAccordionItem heading="Details">
+                            <BootstrapAccordionItem
+                                :id="`${burnPlanElement.content_type}-${burnPlanElement.id}-details`"
+                                heading="Details"
+                            >
                                 <div v-if="burnPlanElement" class="container">
                                     <!-- Non-editable fields -->
                                     <div
@@ -261,10 +264,16 @@
                                     ></RowTextareaComponent>
                                 </div>
                             </BootstrapAccordionItem>
-                            <BootstrapAccordionItem heading="Output Leaders">
+                            <BootstrapAccordionItem
+                                :id="`${burnPlanElement.content_type}-${burnPlanElement.id}-output-leaders`"
+                                heading="Output Leaders"
+                            >
                                 Output Leaders body
                             </BootstrapAccordionItem>
-                            <BootstrapAccordionItem heading="Documents">
+                            <BootstrapAccordionItem
+                                :id="`${burnPlanElement.content_type}-${burnPlanElement.id}-documents`"
+                                heading="Documents"
+                            >
                                 Documents body
                             </BootstrapAccordionItem>
                         </BootstrapAccordion>

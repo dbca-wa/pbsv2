@@ -4,7 +4,7 @@ import router from './router';
 import App from './App.vue';
 import helpers from '@/utils/helpers';
 import { useUserStore } from '@/stores/user';
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
 import govVue3Components from '@dbca/gov-vue3-components';
 const jsZip = require('jszip');
 // @ts-ignore
@@ -55,7 +55,7 @@ app.config.globalProperties.$filters = {
     },
 };
 
-app.use(router).use(govVue3Components).use(CKEditor).use(pinia);
+app.use(router).use(govVue3Components).use(CkeditorPlugin).use(pinia);
 router.isReady().then(() => app.mount('#app'));
 
 const store = useUserStore();

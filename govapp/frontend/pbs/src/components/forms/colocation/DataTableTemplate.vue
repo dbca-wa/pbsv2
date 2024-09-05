@@ -33,6 +33,7 @@
 <script>
 import _ from 'lodash';
 import { helpers } from '@/utils/hooks';
+
 import SelectFilterTemplate from '@/components/forms/colocation/SelectFilterTemplate.vue';
 
 import BootstrapAccordion from '@/components/forms/BootstrapAccordion.vue';
@@ -41,16 +42,13 @@ import BootstrapAccordionItem from '@/components/forms/BootstrapAccordionItem.vu
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 import Select from 'datatables.net-select-bs5';
-import Responsive from 'datatables.net-responsive'; // Note: -bs5 not working
-import Buttons from 'datatables.net-buttons'; // Note: -bs5 not working
-import ButtonsHtml5 from 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons-bs5/js/buttons.bootstrap5.js';
+import Buttons from 'datatables.net-buttons-bs5';
+import Responsive from 'datatables.net-responsive-bs5';
 
 DataTable.use(DataTablesCore);
 DataTable.use(Select);
-DataTable.use(Responsive);
 DataTable.use(Buttons);
-DataTable.use(ButtonsHtml5);
+DataTable.use(Responsive);
 
 export default {
     name: 'DataTableTemplate',
@@ -206,6 +204,7 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
-@import 'datatables.net-dt';
+<style scoped>
+@import 'datatables.net-bs5';
+@import 'datatables.net-responsive-bs5';
 </style>

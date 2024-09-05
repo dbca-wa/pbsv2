@@ -113,14 +113,14 @@
 {% endblock %}
 
 {% block footer %}
-{% project_version as project_version %}
+{% application_version as application_version %}
 {% support_email as support_email %}
 {% support_phone as support_phone %}
 <footer class="footer fixed-bottom mt-3">
     <div class="container-fluid border-top py-2 bg-light text-secondary">
         <div class="row">
             <div class="col">
-                <small class="float-start">Version: {% project_version %}</small>
+                <small class="float-start">Version: {% application_version %}</small>
             </div>
             <div class="col">
                 <small>Support: <a href="mailto:{% support_email %}">{% support_email %}</a> | <a href="tel:{% support_phone %}">{% support_phone %}</a></small>

@@ -86,7 +86,7 @@ class AssignToMeAPIView(APIView):
 
         if not instance.user_is_assignable(request.user):
             raise ValidationError(
-                "You do not have permission to assign this object to yourself"
+                "You are not in the list of assignable users for this object"
             )
 
         logger.info(
@@ -183,18 +183,20 @@ class AssignToAPIView(APIView):
                 "The model the object is based on must extend from AssignableModel"
             )
 
-        if not instance.user_is_assignable(request.user):
-            raise ValidationError(
-                "You do not have permission to assign this object to yourself"
-            )
         user_id = request.data.get("user_id", None)
         if not user_id:
-            raise ValidationError("AssignToMeAPIView requires a user id")
+            instance.assign(None)
+            return Response(status=status.HTTP_200_OK)
 
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
             raise ValidationError(f"No user found with id: {user_id}")
+
+        if not instance.user_is_assignable(user):
+            raise ValidationError(
+                f"{user} is not in the list of assignable users for this object"
+            )
 
         logger.info(f"Assigning: {instance._meta.object_name} {instance} to {user}")
 

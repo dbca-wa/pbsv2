@@ -85,7 +85,7 @@ class BurnPlanElementKeyValueModelSerializer(
     serializers.ModelSerializer,
     GenericKeyValueSerializer[serializers.ModelSerializer, BurnPlanElement],
 ):
-    class Meta(GenericKeyValueSerializer.Meta):
+    class Meta:
         model = BurnPlanElement
 
 
