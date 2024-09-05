@@ -102,7 +102,7 @@ RUN --mount=type=cache,target=~/.cache/pypoetry/cache poetry install --only main
 
 FROM python_dependencies_pbsv2 as collectstatic_pbsv2
 
-COPY --chown=oim:oim gunicorn.conf.py manage.py manage.sh ./
+COPY --chown=oim:oim gunicorn.conf.py manage.py manage.sh python-cron ./
 COPY --chown=oim:oim govapp ./govapp
 COPY --chown=oim:oim .git ./.git
 
