@@ -36,7 +36,7 @@ django-protected-media = "^1.0"
 selenium = "^4.14"
 django-selenium = "^0.9"
 django-storages = "^1.14"
-sentry-sdk = {extras = ["django"], version = "^1.32"}
+sentry-sdk = {extras = ["django"], version = "^2.19"}
 django-nested-admin = "^4.0.2"
 drf-standardized-errors = "^0.12.6"
 djangorestframework-datatables = "^0.7.0"
