@@ -11,12 +11,12 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && \
     echo "fi" >> /etc/bash.bashrc
 
 # For windows
-RUN groupadd -g 1000 docker && \
-    useradd -g 1000 -u 10000 docker -s /bin/bash && \
-    mkdir /home/docker && \
-    chown docker.docker /home/docker && \
-    cp /root/.bashrc /home/docker && \
-    cp /root/.profile /home/docker
+# RUN groupadd -g 1000 docker && \
+#     useradd -g 1000 -u 10000 docker -s /bin/bash && \
+#     mkdir /home/docker && \
+#     chown docker.docker /home/docker && \
+#     cp /root/.bashrc /home/docker && \
+#     cp /root/.profile /home/docker
 
 # For Linux
 RUN groupadd -g 20000 container && \
