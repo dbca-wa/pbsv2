@@ -65,6 +65,13 @@
         "vue-multiselect": "^3.0.0-beta.3",
         "vue-router": "^4.0"
     },
+    "overrides": {
+        "vue": {
+            "dependencies": {
+                "esbuild": "^0.25.0"
+            }
+        }
+    },
     "engines": {
         "node": ">= 4.0.0",
         "npm": ">= 3.0.0"
