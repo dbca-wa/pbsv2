@@ -49,7 +49,6 @@
         "datatables.net-select-bs5": "^2.0.0",
         "datatables.net-select-dt": "^2.0.0",
         "datatables.net-vue3": "^3.0.2",
-        "esbuild": "^0.25.0",
         "jquery": "^3.6",
         "jszip": "^3.9",
         "lodash": "^4.17",
@@ -60,17 +59,10 @@
         "slugify": "^1.6.6",
         "sweetalert2": "11.4.8",
         "uuid": "^10.0",
-        "vue": "^3.4",
+        "vue": "^3.5",
         "vue-content-loader": "^2.0.1",
         "vue-multiselect": "^3.0.0-beta.3",
         "vue-router": "^4.0"
-    },
-    "overrides": {
-        "vue": {
-            "dependencies": {
-                "esbuild": "^0.25.0"
-            }
-        }
     },
     "engines": {
         "node": ">= 4.0.0",
