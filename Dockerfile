@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.2
 
-FROM ubuntu:24.04 as builder_base_oim_pbsv2
+FROM ubuntu:24.04 AS builder_base_oim_pbsv2
 
 LABEL maintainer="asi@dbca.wa.gov.au"
 LABEL org.opencontainers.image.source="https://github.com/dbca-wa/pbsv2"
@@ -13,10 +13,10 @@ ENV DEBIAN_FRONTEND=noninteractive \
     SECRET_KEY="ThisisNotRealKey" \
     SITE_DOMAIN='dbca.wa.gov.au' \
     BPAY_ALLOWED=False \
-    POETRY_VERSION=1.8.3 \
-    NODE_MAJOR=20
+    POETRY_VERSION=2.1.2 \
+    NODE_MAJOR=22
 
-FROM builder_base_oim_pbsv2 as apt_packages_pbsv2
+FROM builder_base_oim_pbsv2 AS apt_packages_pbsv2
 
 # Use Australian Mirrors
 RUN sed 's/archive.ubuntu.com/au.archive.ubuntu.com/g' /etc/apt/sources.list > /etc/apt/sourcesau.list && \
@@ -58,7 +58,7 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && \
     update-ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-FROM apt_packages_pbsv2 as node_pbsv2
+FROM apt_packages_pbsv2 AS node_pbsv2
 
 # install node 20
 RUN mkdir -p /etc/apt/keyrings && \
@@ -68,7 +68,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get update && \
     apt-get install -y nodejs
 
-FROM node_pbsv2 as configure_pbsv2
+FROM node_pbsv2 AS configure_pbsv2
 
 COPY startup.sh /
 
@@ -86,7 +86,7 @@ RUN chmod 755 /startup.sh && \
     /tmp/default_script_installer.sh && \
     rm -rf /tmp/*
 
-FROM configure_pbsv2 as python_dependencies_pbsv2
+FROM configure_pbsv2 AS python_dependencies_pbsv2
 
 WORKDIR /app
 USER oim
@@ -100,7 +100,7 @@ RUN poetry completions bash > ~/.bash_completion && \
     poetry run pip install --upgrade pip
 RUN --mount=type=cache,target=~/.cache/pypoetry/cache poetry install --only main --no-interaction --no-ansi
 
-FROM python_dependencies_pbsv2 as collectstatic_pbsv2
+FROM python_dependencies_pbsv2 AS collectstatic_pbsv2
 
 COPY --chown=oim:oim gunicorn.conf.py manage.py manage.sh python-cron ./
 COPY --chown=oim:oim govapp ./govapp
@@ -109,12 +109,12 @@ COPY --chown=oim:oim .git ./.git
 RUN touch /app/.env && \
     poetry run python manage.py collectstatic --no-input
 
-FROM collectstatic_pbsv2 as build_vue_pbsv2
+FROM collectstatic_pbsv2 AS build_vue_pbsv2
 
 RUN cd /app/govapp/frontend/pbs ; npm ci --omit=dev && \
     cd /app/govapp/frontend/pbs ; npm run build
 
-FROM build_vue_pbsv2 as launch_pbsv2
+FROM build_vue_pbsv2 AS launch_pbsv2
 
 EXPOSE 8080
 HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "-", "http://localhost:8080/"]

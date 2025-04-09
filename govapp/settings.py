@@ -550,3 +550,5 @@ MESSAGING_LATEST_MESSAGES_COUNT = 5
 CSRF_TRUSTED_ORIGINS = decouple.config(
     "CSRF_TRUSTED_ORIGINS", default="", cast=decouple.Csv()
 )
+
+MAILQUEUE_STORAGE = True

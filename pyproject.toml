@@ -4,10 +4,11 @@ version = "1.0.0"
 description = "Bushfire Management System"
 authors = ["DBCA OIM <asi@dbca.wa.gov.au>"]
 license = "Apache-2.0"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "5.0.13"
+Django = "5.2"
 djangorestframework = "^3.14"
 dj-database-url = "^2.1"
 psycopg2 = "^2.9"
@@ -21,7 +22,7 @@ django-filter = "^23.3"
 python-dateutil = "^2.8"
 django-reversion = "^5.0"
 django-reversion-rest-framework = "^1.1"
-django-cron = "^0.6"
+django-cron = {git = "https://github.com/dbca-wa/django-cron.git", rev = "60d2002e58ac99a06ed66633ed76d8cf3380a762"}
 django-cors-headers = "^4.2"
 py7zr = "^0.20"
 httpx = "^0.25"
